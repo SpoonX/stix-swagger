@@ -1,3 +1,13 @@
+<a name="0.0.3"></a>
+## [0.0.3](https://github.com/SpoonX/stix-swagger/compare/v0.0.2...v0.0.3) (2018-10-07)
+
+
+### Bug Fixes
+
+* **project:** correct dir name ([9a0854c](https://github.com/SpoonX/stix-swagger/commit/9a0854c))
+
+
+
 <a name="0.0.2"></a>
 ## [0.0.2](https://github.com/SpoonX/stix-swagger/compare/v0.0.1...v0.0.2) (2018-10-07)
 
