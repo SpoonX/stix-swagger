@@ -1,5 +1,5 @@
 import { Route } from 'stix';
-import { SwaggerController } from '../src/Controller/index';
+import { SwaggerController } from '../Library/Controller';
 
 /**
  * This config is where you configure your routes.

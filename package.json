@@ -9,7 +9,7 @@
   "author": "RWOverdijk <r.w.overdijk@gmail.com>",
   "main": "./dist/index.js",
   "files": [
-    "dist"
+    "dist", "public"
   ],
   "types": "dist/index.d.ts",
   "keywords": [

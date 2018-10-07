@@ -28,9 +28,8 @@ export class SwaggerController extends AbstractActionController {
   private serverService: ServerService;
 
   public async ui() {
-    // procurator
     const ui = fs
-      .createReadStream(path.resolve(__dirname, '..', '..', 'static', 'index.html'))
+      .createReadStream(path.resolve(__dirname, '..', '..', '..', 'static', 'index.html'))
       .pipe(procurator({ url: this.serverService.getURL() + 'swagger/doc' }, false));
 
     return this.okResponse({}).html(ui);
