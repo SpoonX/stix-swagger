@@ -1,6 +1,6 @@
 {
   "name": "stix-swagger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A stix module that generates swagger docs based on your stix app.",
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   "author": "RWOverdijk <r.w.overdijk@gmail.com>",
   "main": "./dist/index.js",
   "files": [
-    "dist", "public"
+    "dist",
+    "public"
   ],
   "types": "dist/index.d.ts",
   "keywords": [
