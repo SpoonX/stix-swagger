@@ -10,7 +10,7 @@
   "main": "./dist/index.js",
   "files": [
     "dist",
-    "public"
+    "static"
   ],
   "types": "dist/index.d.ts",
   "keywords": [
