@@ -1,4 +1,7 @@
-# stix-swagger
+# ![Stix swagger](./stix-swagger.svg)
+
+[![Slack Status](https://spoonx-slack.herokuapp.com/badge.svg)](https://spoonx-slack.herokuapp.com)
+
 
 A first stab at a [stix](https://github.com/SpoonX/stix) module that generates swagger docs based on your stix app.
 
