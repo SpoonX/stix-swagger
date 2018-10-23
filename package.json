@@ -1,6 +1,6 @@
 {
   "name": "stix-swagger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A stix module that generates swagger docs based on your stix app.",
   "repository": {
     "type": "git",

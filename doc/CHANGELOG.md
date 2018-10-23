@@ -1,3 +1,18 @@
+<a name="0.0.5"></a>
+## [0.0.5](https://github.com/SpoonX/stix-swagger/compare/v0.0.4...v0.0.5) (2018-10-23)
+
+
+### Bug Fixes
+
+* **package.json:** move procurator from devDependencies to dependencies ([221db18](https://github.com/SpoonX/stix-swagger/commit/221db18))
+
+
+### Features
+
+* **project:** add logo ([0d9ba80](https://github.com/SpoonX/stix-swagger/commit/0d9ba80))
+
+
+
 <a name="0.0.4"></a>
 ## [0.0.4](https://github.com/SpoonX/stix-swagger/compare/v0.0.3...v0.0.4) (2018-10-07)
 
