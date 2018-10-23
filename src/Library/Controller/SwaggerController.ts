@@ -1,4 +1,4 @@
-const procurator = require('procurator');
+import procurator from 'procurator';
 import {
   AbstractActionController,
   Config,
@@ -27,7 +27,7 @@ export class SwaggerController extends AbstractActionController {
   @inject(ServerService)
   private serverService: ServerService;
 
-  public async ui() {
+  public async ui () {
     const ui = fs
       .createReadStream(path.resolve(__dirname, '..', '..', '..', 'static', 'index.html'))
       .pipe(procurator({ url: this.serverService.getURL() + 'swagger/doc' }, false));
@@ -35,14 +35,14 @@ export class SwaggerController extends AbstractActionController {
     return this.okResponse({}).html(ui);
   }
 
-  public async doc() {
+  public async doc () {
     const queryParameters: any = {};
     const paths: { [key: string]: any } = {};
     const tags: any = {};
     const components = {
       schemas: {
         Error: {
-          required: ['code', 'message'],
+          required: [ 'code', 'message' ],
           properties: {
             data: {
               type: 'object',
@@ -118,7 +118,7 @@ export class SwaggerController extends AbstractActionController {
       };
     };
 
-    const allowedTypes = ['array', 'boolean', 'integer', 'number', 'object', 'string'];
+    const allowedTypes = [ 'array', 'boolean', 'integer', 'number', 'object', 'string' ];
 
     const makeEntitySchema = (mapping: Mapping<Object>) => {
       const fields = mapping.getFields();
@@ -159,7 +159,7 @@ export class SwaggerController extends AbstractActionController {
       return scheme;
     };
 
-    const requestMethodsWithBody = [RequestMethods.Post, RequestMethods.Put, RequestMethods.Patch];
+    const requestMethodsWithBody = [ RequestMethods.Post, RequestMethods.Put, RequestMethods.Patch ];
 
     const makePaths = (routes: RegisteredRouteInterface[]) => {
       routes.forEach((route: RegisteredRouteInterface) => {
@@ -178,9 +178,9 @@ export class SwaggerController extends AbstractActionController {
         const path: any = (paths[routeKey][route.method.toLowerCase()] = {});
 
         Object.assign(path, {
-          tags: [tagName],
+          tags: [ tagName ],
           description: `${route.action}`,
-          operationId: [route.method, route.controller.name, route.action].join('_'),
+          operationId: [ route.method, route.controller.name, route.action ].join('_'),
           responses: makeResponses(tagName, schemaKey, method),
         });
 

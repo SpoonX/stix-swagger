@@ -17,7 +17,7 @@ const isProduction = process.env.NODE_ENV === 'production';
  * This is where stix will collect the configuration and call init() and/or onBootstrap().
  */
 export class Swagger implements ModuleInterface {
-  init(moduleManager: ModuleManager) {
+  init (moduleManager: ModuleManager) {
     if (isProduction) {
       return;
     }
@@ -32,7 +32,7 @@ export class Swagger implements ModuleInterface {
       });
   }
 
-  getConfig() {
+  getConfig () {
     if (isProduction) {
       return null;
     }

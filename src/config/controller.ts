@@ -12,7 +12,7 @@ import { ControllerManagerConfigType } from 'stix';
  * This has the added benefit of supporting the @inject()` and `@patch` decorators.
  */
 export const controller: ControllerManagerConfigType = {
-  locations: [path.resolve(__dirname, '..', 'Library', 'Controller')],
+  locations: [ path.resolve(__dirname, '..', 'Library', 'Controller') ],
 };
 
 const test = { foo: 'bar' };
