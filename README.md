@@ -16,8 +16,6 @@ A first stab at a [stix](https://github.com/SpoonX/stix) module that generates s
 - SwaggerMeta.compose(Entity, { auth: 'jwt' })
 - Add link to stix-wetland docs explaining querying options
 - Allow for fields to be marked as optional (createdAt and the likes)
-- Add link on starting server. "api available here, docs available here"
-- https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/installation.md
 
 ## License
 
