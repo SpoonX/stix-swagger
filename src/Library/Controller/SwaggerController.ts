@@ -1,4 +1,4 @@
-const procurator = require('procurator');
+import procurator from 'procurator';
 import {
   AbstractActionController,
   Config,
