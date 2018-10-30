@@ -1,3 +1,13 @@
+<a name="0.0.7"></a>
+## [0.0.7](https://github.com/SpoonX/stix-swagger/compare/v0.0.6...v0.0.7) (2018-10-30)
+
+
+### Bug Fixes
+
+* **SwaggerController:** fix procurator import ([153eef3](https://github.com/SpoonX/stix-swagger/commit/153eef3))
+
+
+
 <a name="0.0.6"></a>
 ## [0.0.6](https://github.com/SpoonX/stix-swagger/compare/v0.0.5...v0.0.6) (2018-10-23)
 
