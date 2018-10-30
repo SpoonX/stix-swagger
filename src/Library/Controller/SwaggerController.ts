@@ -1,4 +1,4 @@
-import procurator from 'procurator';
+import { stream } from 'procurator';
 import {
   AbstractActionController,
   Config,
@@ -30,7 +30,7 @@ export class SwaggerController extends AbstractActionController {
   public async ui () {
     const ui = fs
       .createReadStream(path.resolve(__dirname, '..', '..', '..', 'static', 'index.html'))
-      .pipe(procurator({ url: this.serverService.getURL() + 'swagger/doc' }, false));
+      .pipe(stream({ url: this.serverService.getURL() + 'swagger/doc' }, false));
 
     return this.okResponse({}).html(ui);
   }
