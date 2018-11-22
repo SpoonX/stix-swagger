@@ -1,3 +1,13 @@
+<a name="0.0.9"></a>
+## [0.0.9](https://github.com/SpoonX/stix-swagger/compare/v0.0.8...v0.0.9) (2018-11-22)
+
+
+### Bug Fixes
+
+* **Swagger:** only serve UI in server mode ([efd5271](https://github.com/SpoonX/stix-swagger/commit/efd5271))
+
+
+
 <a name="0.0.8"></a>
 ## [0.0.8](https://github.com/SpoonX/stix-swagger/compare/v0.0.7...v0.0.8) (2018-11-22)
 
