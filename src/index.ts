@@ -5,3 +5,4 @@ import { Swagger } from './Library/Swagger';
  * This is of course entirely optional.
  */
 export default Swagger;
+export * from './Library/Controller';
