@@ -1,12 +1,13 @@
 import * as config from '../config/index';
 import {
-  ModuleInterface,
-  Event,
-  ModuleManager,
-  ApplicationEvents,
   Application,
-  ServerService,
+  ApplicationEvents,
+  ApplicationModes,
   createDebugLogger,
+  Event,
+  ModuleInterface,
+  ModuleManager,
+  ServerService,
 } from 'stix';
 
 const debug = createDebugLogger('stix:swagger');
@@ -18,7 +19,7 @@ const isProduction = process.env.NODE_ENV === 'production';
  */
 export class Swagger implements ModuleInterface {
   init (moduleManager: ModuleManager) {
-    if (isProduction) {
+    if (isProduction || moduleManager.getApplication().getMode() === ApplicationModes.Cli) {
       return;
     }
 
