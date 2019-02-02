@@ -1,7 +1,9 @@
 import { stream } from 'procurator';
 import {
   AbstractActionController,
+  config,
   Config,
+  ControllerManager,
   inject,
   RegisteredRouteInterface,
   RequestMethods,
@@ -13,6 +15,8 @@ import { Key } from 'path-to-regexp';
 import { getAssociatedEntity, WetlandService } from 'stix-wetland';
 import * as path from 'path';
 import * as fs from 'fs';
+import { AbstractGate, Gate, GateManagerConfigType } from 'stix-gates';
+import { SecurityConfig, SecurityGate } from 'stix-security';
 
 export class SwaggerController extends AbstractActionController {
   @inject(RouterService)
@@ -23,6 +27,15 @@ export class SwaggerController extends AbstractActionController {
 
   @inject(Config)
   private config: Config;
+
+  @config('gate')
+  private gateConfig: GateManagerConfigType;
+
+  @config('security')
+  private securityConfig: SecurityConfig;
+
+  @inject(ControllerManager)
+  private controllerManager: ControllerManager;
 
   @inject(ServerService)
   private serverService: ServerService;
@@ -39,7 +52,8 @@ export class SwaggerController extends AbstractActionController {
     const queryParameters: any = {};
     const paths: { [key: string]: any } = {};
     const tags: any = {};
-    const components = {
+    const components: any = {
+      securitySchemes: {},
       schemas: {
         Error: {
           required: [ 'code', 'message' ],
@@ -176,6 +190,23 @@ export class SwaggerController extends AbstractActionController {
         };
 
         const path: any = (paths[routeKey][route.method.toLowerCase()] = {});
+        const controller = this.controllerManager.get(route.controller) as any;
+        const applicableGates = [].concat(Gate.applicableGates(controller, route.action, this.gateConfig.rules));
+        const security = applicableGates.reduce((securitySchemes: any, gate: typeof SecurityGate) => {
+          if (gate.constructor === SecurityGate.constructor) {
+            const key = gate.getConfigKey();
+
+            components.securitySchemes[key] = this.securityConfig.schemes[key].scheme;
+
+            securitySchemes[key] = [];
+          }
+
+          return securitySchemes;
+        }, {});
+
+        if (Object.keys(security).length) {
+          path.security = [security];
+        }
 
         Object.assign(path, {
           tags: [ tagName ],
@@ -246,7 +277,7 @@ export class SwaggerController extends AbstractActionController {
         tags: Object.values(tags),
         servers: [
           {
-            url: 'http://localhost:' + this.config.of<any>('server').port,
+            url: this.serverService.getURL(),
           },
         ],
         components,
