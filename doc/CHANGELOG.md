@@ -1,3 +1,12 @@
+# [0.1.0](https://github.com/SpoonX/stix-swagger/compare/v0.0.9...v0.1.0) (2019-02-02)
+
+
+### Features
+
+* **project:** add security ([14011e8](https://github.com/SpoonX/stix-swagger/commit/14011e8))
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/SpoonX/stix-swagger/compare/v0.0.8...v0.0.9) (2018-11-22)
 
