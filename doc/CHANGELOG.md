@@ -1,3 +1,12 @@
+## [0.1.1](https://github.com/SpoonX/stix-swagger/compare/v0.1.0...v0.1.1) (2019-03-23)
+
+
+### Bug Fixes
+
+* **SwaggerController:** proper check for security gate inheritance ([61e95bc](https://github.com/SpoonX/stix-swagger/commit/61e95bc))
+
+
+
 # [0.1.0](https://github.com/SpoonX/stix-swagger/compare/v0.0.9...v0.1.0) (2019-02-02)
 
 
