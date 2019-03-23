@@ -193,7 +193,7 @@ export class SwaggerController extends AbstractActionController {
         const controller = this.controllerManager.get(route.controller) as any;
         const applicableGates = [].concat(Gate.applicableGates(controller, route.action, this.gateConfig.rules));
         const security = applicableGates.reduce((securitySchemes: any, gate: typeof SecurityGate) => {
-          if (gate.constructor === SecurityGate.constructor) {
+          if (gate.prototype && gate.prototype instanceof SecurityGate) {
             const key = gate.getConfigKey();
 
             components.securitySchemes[key] = this.securityConfig.schemes[key].scheme;
