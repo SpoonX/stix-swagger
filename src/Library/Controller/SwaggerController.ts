@@ -256,7 +256,7 @@ export class SwaggerController extends AbstractActionController {
         description: key.name + ' value.',
         required: !key.optional,
         schema: {
-          type: key.type || (/(Id|_id|^id)$/.test(key.name as string) ? 'integer' : 'string'),
+          type: key.type || 'string',
         },
       }));
     };
