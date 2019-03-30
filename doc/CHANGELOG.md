@@ -1,3 +1,12 @@
+## [0.1.2](https://github.com/SpoonX/stix-swagger/compare/v0.1.1...v0.1.2) (2019-03-30)
+
+
+### Bug Fixes
+
+* **SwaggerController:** param type always default to string ([fe442cf](https://github.com/SpoonX/stix-swagger/commit/fe442cf))
+
+
+
 ## [0.1.1](https://github.com/SpoonX/stix-swagger/compare/v0.1.0...v0.1.1) (2019-03-23)
 
 
