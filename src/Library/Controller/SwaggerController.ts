@@ -113,7 +113,6 @@ export class SwaggerController extends AbstractActionController {
     };
 
     const ensureSchema = (controller: any, action: string, method: RequestMethods) => {
-      // @todo add check for joi schema
       // Schema takes precedence over entity
       const fromSchema = ensureFromSchema(controller, action, 'body');
 
@@ -271,7 +270,6 @@ export class SwaggerController extends AbstractActionController {
 
         const parameters = [];
 
-        // @todo if schema ignore the below
         const schema = getFromSchema(route.controller, route.action,'query');
 
         if (schema) {
