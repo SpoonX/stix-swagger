@@ -2,20 +2,43 @@
 
 [![Slack Status](https://spoonx-slack.herokuapp.com/badge.svg)](https://spoonx-slack.herokuapp.com)
 
+A [stix](https://github.com/SpoonX/stix) module that generates swagger docs based on your stix app.
 
-A first stab at a [stix](https://github.com/SpoonX/stix) module that generates swagger docs based on your stix app.
+It currently works with:
 
-## todo
+- stix-gates
+- stix-schema
+- stix-wetland
+- stix-security
 
-- Optional fields for Update model (all required are still required)
-- Add query options as parameters (sort, limit, offset, etc)
-- Get actual error format from ResponseService (fake a response to get layout)
-- Create config for default swagger doc values.
-- Allow for additional meta to be provided (decorator, or last arg on the route)
-- Implement authentication types
-- SwaggerMeta.compose(Entity, { auth: 'jwt' })
-- Add link to stix-wetland docs explaining querying options
-- Allow for fields to be marked as optional (createdAt and the likes)
+All of these you'll want to use anyway, stix-swagger just uses them to build your swagger docs for you.
+
+## Installation
+
+The same as any other stix module. `yarn add stix-swagger` and add it to your `modules.ts` config.
+
+The server then gets started when NODE_ENV is not production (so in dev).
+
+I like to add this to my app.ts so it always outputs the swagger url in dev when running the server:
+
+```ts
+import chalk from 'chalk';
+import stix, { Application, ApplicationModes, ServerService } from 'stix';
+import * as config from './config';
+
+(async () => {
+  const mode: ApplicationModes = process.env.STIX_APPLICATION_MODE as ApplicationModes;
+  const app: Application = await stix(config).launch(mode);
+
+  if (app.getMode() === ApplicationModes.Server && !app.isProduction()) {
+    const url = app.getServiceManager().get(ServerService).getURL();
+
+    console.log(chalk`\n\t{bold {green Server ready. Happy hacking!}}`);
+    console.log(chalk`\n\t{bold Server:\t\t${url}}`);
+    console.log(chalk`\t{bold Swagger docs:\t${url}swagger/ui}\n`);
+  }
+})();
+``` 
 
 ## License
 
