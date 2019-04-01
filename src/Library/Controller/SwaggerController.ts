@@ -82,7 +82,7 @@ export class SwaggerController extends AbstractActionController {
 
       try {
         if (!(components.schemas as any)[name]) {
-          (components.schemas as any)[name] = joiToOpenApi(schema.isJoi ? schema : Joi.object(schema));
+          (components.schemas as any)[name] = joiToOpenApi(schema.isJoi ? schema as Joi.AnySchema : Joi.object(schema as Joi.SchemaMap));
         }
 
         return true;
