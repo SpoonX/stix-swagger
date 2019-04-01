@@ -1,3 +1,12 @@
+# [1.0.0](https://github.com/SpoonX/stix-swagger/compare/v0.1.2...v1.0.0) (2019-04-01)
+
+
+### Features
+
+* **project:** add support for stix-schema ([0ac5a18](https://github.com/SpoonX/stix-swagger/commit/0ac5a18))
+
+
+
 ## [0.1.2](https://github.com/SpoonX/stix-swagger/compare/v0.1.1...v0.1.2) (2019-03-30)
 
 
