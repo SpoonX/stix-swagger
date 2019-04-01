@@ -34,24 +34,25 @@
     "postpublish": "git push upstream master && git push upstream --tags"
   },
   "dependencies": {
+    "@types/joi": "^14.3.2",
+    "joi": "^14.3.1",
+    "joi-to-openapi": "^1.0.3",
     "procurator": "^3.0.1",
+    "stix": "^4.5.2",
     "stix-gates": "^3.0.5",
-    "stix-security": "^0.0.7"
+    "stix-schema": "^1.0.2",
+    "stix-security": "^0.0.7",
+    "stix-wetland": "^1.1.4"
   },
   "devDependencies": {
     "@types/node": "^10.11.4",
     "koa": "^2.5.3",
-    "stix": "^4.3.2",
-    "stix-wetland": "^1.1.4",
+    "stix": "^4.5.2",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.0.3",
     "wetland": "^4.1.2"
-  },
-  "peerDependencies": {
-    "stix": "^4.3.2",
-    "stix-wetland": "^1.1.4"
   },
   "license": "MIT"
 }
