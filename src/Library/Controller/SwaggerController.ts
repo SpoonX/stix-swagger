@@ -1,4 +1,5 @@
 import { stream } from 'procurator';
+import Joi from 'joi';
 import {
   AbstractActionController,
   config,
@@ -10,13 +11,15 @@ import {
   RouterService,
   ServerService,
 } from 'stix';
+import joiToOpenApi from 'joi-to-openapi';
 import { Mapping } from 'wetland';
 import { Key } from 'path-to-regexp';
 import { getAssociatedEntity, WetlandService } from 'stix-wetland';
 import * as path from 'path';
 import * as fs from 'fs';
-import { AbstractGate, Gate, GateManagerConfigType } from 'stix-gates';
+import { Gate, GateManagerConfigType } from 'stix-gates';
 import { SecurityConfig, SecurityGate } from 'stix-security';
+import { Schema, SchemaService } from 'stix-schema';
 
 export class SwaggerController extends AbstractActionController {
   @inject(RouterService)
@@ -39,6 +42,9 @@ export class SwaggerController extends AbstractActionController {
 
   @inject(ServerService)
   private serverService: ServerService;
+
+  @inject(SchemaService)
+  private schemaService: SchemaService;
 
   public async ui () {
     const ui = fs
@@ -71,7 +77,49 @@ export class SwaggerController extends AbstractActionController {
 
     const routeToSwaggerPath = (route: string) => route.replace(/(:)(.*?)(\/|$)/g, '{$2}$3');
 
-    const ensureSchema = (controller: any, method: RequestMethods) => {
+    const assembleSchema = (schemaSource: Schema) => {
+      const { schema, name } = schemaSource;
+
+      try {
+        if (!(components.schemas as any)[name]) {
+          (components.schemas as any)[name] = joiToOpenApi(schema.isJoi ? schema : Joi.object(schema));
+        }
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    };
+
+    const getFromSchema = (controller: any, action: string, source: 'body' | 'query'): any => {
+      const resolvedController: any = this.controllerManager.getController(controller);
+      const schemaRule = this.schemaService.getSchemaRule(resolvedController, action);
+
+      return schemaRule ? schemaRule[source] : null;
+    };
+
+    const ensureFromSchema = (controller: any, action: string, source: 'body' | 'query'): any => {
+      const schema = getFromSchema(controller, action, source);
+
+      if (!schema) {
+        return false;
+      }
+
+      if (assembleSchema(schema)) {
+        return schema.name;
+      }
+
+      return false;
+    };
+
+    const ensureSchema = (controller: any, action: string, method: RequestMethods) => {
+      // Schema takes precedence over entity
+      const fromSchema = ensureFromSchema(controller, action, 'body');
+
+      if (fromSchema) {
+        return fromSchema;
+      }
+
       const Entity = getAssociatedEntity(controller);
 
       if (!Entity) {
@@ -89,17 +137,22 @@ export class SwaggerController extends AbstractActionController {
     };
 
     const makeBody = (controller: any, schemaKey: string) => {
-      return {
+      const bodyDefinition: { description: string, required: boolean, content?: any } = {
         description: 'Data model for ' + controller.name,
         required: true,
-        content: {
+      };
+
+      if (schemaKey) {
+        bodyDefinition.content = {
           'application/json': {
             schema: {
               $ref: '#/components/schemas/' + schemaKey,
             },
           },
-        },
-      };
+        }
+      }
+
+      return bodyDefinition;
     };
 
     const makeResponses = (resourceName: string, schemaKey: string, method: RequestMethods) => {
@@ -179,7 +232,7 @@ export class SwaggerController extends AbstractActionController {
       routes.forEach((route: RegisteredRouteInterface) => {
         const routeKey = routeToSwaggerPath((route as any).route);
         const method = route.method as RequestMethods;
-        const schemaKey = ensureSchema(route.controller, method);
+        const schemaKey = ensureSchema(route.controller, route.action, method);
         const tagName = route.controller.name.replace(/Controller$/, '');
 
         paths[routeKey] = paths[routeKey] || {};
@@ -217,24 +270,30 @@ export class SwaggerController extends AbstractActionController {
 
         const parameters = [];
 
-        if (route.action === 'find') {
-          try {
-            const Entity = getAssociatedEntity(route.controller);
+        const schema = getFromSchema(route.controller, route.action,'query');
 
-            if (!Entity) {
-              return;
+        if (schema) {
+          parameters.push(...makeSchemaParameters(joiToOpenApi(schema.schema.isJoi ? schema.schema : Joi.object(schema.schema))));
+        } else {
+          if (route.action === 'find') {
+            try {
+              const Entity = getAssociatedEntity(route.controller);
+
+              if (!Entity) {
+                return;
+              }
+
+              const mapping = this.wetlandService.getMapping(Entity);
+
+              parameters.push(...queryParameters[mapping.getEntityName()]);
+            } catch (error) {
+              // Lol, ignored!
             }
-
-            const mapping = this.wetlandService.getMapping(Entity);
-
-            parameters.push(...queryParameters[mapping.getEntityName()]);
-          } catch (error) {
-            // Lol, ignored!
           }
-        }
 
-        if (Array.isArray(route.keys) && route.keys.length) {
-          parameters.push(...makeParameters(route.keys));
+          if (Array.isArray(route.keys) && route.keys.length) {
+            parameters.push(...makeParameters(route.keys));
+          }
         }
 
         if (parameters.length) {
@@ -247,6 +306,18 @@ export class SwaggerController extends AbstractActionController {
       });
 
       return paths;
+    };
+
+    const makeSchemaParameters = (schemaObject: any) => {
+      return Reflect.ownKeys(schemaObject.properties).map((property: string) => {
+        return {
+          name: property,
+          in: 'query',
+          description: property + ' value.',
+          required: schemaObject.required.includes(property),
+          schema: schemaObject.properties[property],
+        };
+      });
     };
 
     const makeParameters = (keys: Key[], availableIn = 'path') => {
