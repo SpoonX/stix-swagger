@@ -40,7 +40,7 @@
     "procurator": "^3.0.1",
     "stix": "^4.5.2",
     "stix-gates": "^3.0.5",
-    "stix-schema": "^1.0.2",
+    "stix-schema": "^1.0.3",
     "stix-security": "^0.0.7",
     "stix-wetland": "^1.1.4"
   },
