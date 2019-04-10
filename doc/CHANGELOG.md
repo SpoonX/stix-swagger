@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/SpoonX/stix-swagger/compare/v1.0.2...v1.0.3) (2019-04-10)
+
+
+### Bug Fixes
+
+* **SwaggerController:** check if array exists before rule ([f0d0706](https://github.com/SpoonX/stix-swagger/commit/f0d0706))
+
+
+
 ## [1.0.2](https://github.com/SpoonX/stix-swagger/compare/v1.0.1...v1.0.2) (2019-04-03)
 
 
