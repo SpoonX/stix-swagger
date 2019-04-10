@@ -314,7 +314,7 @@ export class SwaggerController extends AbstractActionController {
           name: property,
           in: 'query',
           description: property + ' value.',
-          required: schemaObject.required.includes(property),
+          required: schemaObject.required && schemaObject.required.includes(property),
           schema: schemaObject.properties[property],
         };
       });
