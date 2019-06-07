@@ -130,7 +130,7 @@ export class SwaggerController extends AbstractActionController {
       const schemaKey = (method === RequestMethods.Post ? 'New' : '') + mapping.getEntityName();
 
       if (!(components.schemas as any)[schemaKey]) {
-        (components.schemas as any)[schemaKey] = makeEntitySchema(mapping);
+        (components.schemas as any)[schemaKey] = makeEntitySchema(mapping as any);
       }
 
       return schemaKey;

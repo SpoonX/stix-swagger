@@ -42,7 +42,7 @@
     "stix-gates": "^3.0.5",
     "stix-schema": "^1.0.3",
     "stix-security": "^0.0.7",
-    "stix-wetland": "^1.1.4"
+    "stix-wetland": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^10.11.4",
