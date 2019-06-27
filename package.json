@@ -39,9 +39,9 @@
     "joi-to-openapi": "^1.0.3",
     "procurator": "^3.0.1",
     "stix": "^4.5.2",
-    "stix-gates": "^3.0.5",
-    "stix-schema": "^1.0.3",
-    "stix-security": "^0.0.7",
+    "stix-gates": "^3.0.7",
+    "stix-schema": "^1.0.4",
+    "stix-security": "^0.0.8",
     "stix-wetland": "^1.2.1"
   },
   "devDependencies": {
